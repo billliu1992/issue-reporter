@@ -1,0 +1,14 @@
+extends base
+
+block head_includes
+	title Issue Reporter
+
+block content
+	#issue-entries
+		- for(var i = 0; i < issues.length; i++) {
+			.issue-entry
+				span.issue-name = issues[i]
+		- }
+
+		.issue-entry
+			a(href="create") Create a new Issue
