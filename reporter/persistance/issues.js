@@ -2,13 +2,16 @@ var MongoClient = require("mongodb").MongoClient
 var Server = require("mongodb").Server;
 
 var IssuesDAO = function() {
-	var server = new Server('localhost', 27017);
+	var server = new Server('localhost', 27017);	/* Change later */
 	this.client = new MongoClient(server);
 };
 
 IssuesDAO.prototype = {
 	/* 
 	 */
+
+	DATABASE_NAME : "issue_db",
+	
 	createNewIssueQuick : function(title, body, type, priority, createDate, modifiedDate, reporter, assignee, internal) {
 		var newObj = createIssueObject(title, body, type, priority, createDate, modifiedDate, reporter, assignee, internal);
 	},
@@ -32,27 +35,35 @@ IssuesDAO.prototype = {
 		this.client.open(function(err, mClient) {
 			var db = mClient.db("issue_db");
 			
-			db.issues.insert(issueObj);
-			
-			mClient.close();
+			db.collection("issues").insert(issueObj, function(err, inserted) {
+				if(err !== null) {
+					console.log(err);
+					return;
+				}
+
+				mClient.close();
+			});
 		});
 	},
 	
-	getIssues : function(issueObj) {
+	getIssues : function(callback) {
 		var list = [];
 		
 		this.client.open(function(err, mClient) {
 			var db = mClient.db("issue_db");
-			var cursor = db.collection("issues").find();
-			
-			cursor.toArray(function(err, documents) {
-				list = documents;
+			db.collection("issues").find({}, function(err, cursor) {
+				cursor.toArray(function(err, documents) {
+					if(err !== null) {
+						console.log(err);
+						return;
+					}
+
+					callback(documents);
+
+					mClient.close();
+				});
 			});
-			
-			mClient.close();
 		});
-		
-		return list;
 	}
 }
 

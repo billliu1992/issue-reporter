@@ -1,234 +1,238 @@
 /* overrides */
+/* line 4, ../../sass/base.scss */
 body {
-	background-color: #D9F2FF;
-	font-size: 130%;
-	font-family: Arial;
-	margin: 0px;
+  background-color: #D9F2FF;
+  font-size: 130%;
+  font-family: Arial;
+  margin: 0px;
 }
 
+/* line 11, ../../sass/base.scss */
 hr {
-	margin: .6em .2em;
-	height: 3px;
-	background-color: #555;
+  margin: .6em .2em;
+  height: 3px;
+  background-color: #555;
 }
 
+/* line 17, ../../sass/base.scss */
 a {
-	text-decoration: none;
+  text-decoration: none;
 }
 
+/* line 21, ../../sass/base.scss */
 a, a:visited {
-	color: #628FD9;
+  color: #628FD9;
 }
 
+/* line 25, ../../sass/base.scss */
 a:hover {
-	color: #4770B3;
+  color: #4770B3;
 }
 
-
+/* line 30, ../../sass/base.scss */
 button, input[type="button"], input[type="submit"], .button {
-	background-color: #93CCCB;
-	border-color: #2D5958;
-	
-	color: #2D5958;
-	border-style: solid;
-	padding: .3em .5em;
-	border-radius: 5px;
-	
-	border-width: 2px;
+  background-color: #93CCCB;
+  border-color: #2D5958;
+  color: #2D5958;
+  border-style: solid;
+  padding: .3em .5em;
+  border-radius: 5px;
+  border-width: 2px;
 }
 
 /* main content */
-
+/* line 44, ../../sass/base.scss */
 #all-content {
-	width: 50%;
-	min-width: 700px;
-	margin-right: auto;
-	margin-left: auto;
-	
-	height: 100%;
+  width: 50%;
+  min-width: 700px;
+  margin-right: auto;
+  margin-left: auto;
+  height: 100%;
 }
 
+/* line 53, ../../sass/base.scss */
 #header {
-	height: 5em;
-	overflow: auto;
+  height: 5em;
+  overflow: auto;
 }
 
+/* line 58, ../../sass/base.scss */
 #logo {
-	color: #000;
-	margin-top: .5em;
-	text-align: center;
-	font-size: 200%;
+  color: #000;
+  margin-top: .5em;
+  text-align: center;
+  font-size: 200%;
 }
 
+/* line 65, ../../sass/base.scss */
 #main-body {
-	display: block;
-	min-height: 100%;
-	margin-bottom: 10%;
-	padding-bottom: .5em;
+  display: block;
+  min-height: 100%;
+  margin-bottom: 10%;
+  padding-bottom: .5em;
 }
 
+/* line 72, ../../sass/base.scss */
 #footer {
-	width: 100%;
-	bottom: 0;
-	height: 5em;
+  width: 100%;
+  bottom: 0;
+  height: 5em;
 }
 
 /* Side bar */
-
+/* line 80, ../../sass/base.scss */
 #menu-bar {
-	margin: .3em 0;
+  margin: .3em 0;
 }
 
+/* line 84, ../../sass/base.scss */
 a.menu-item {
-	display: inline-block;
-	text-align: center;
-	font-family: Hammersmith One, Arial;
-	font-size: 100%;
-	
-	padding: .1em;
-	width: 23%;
-	
-	color: #000;
-	text-decoration:none;
-	cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  font-family: Hammersmith One, Arial;
+  font-size: 100%;
+  padding: .1em;
+  width: 23%;
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.menu-item:hover {
-
-}
-
+/* line 102, ../../sass/base.scss */
 .active-item {
-	font-size: 17px;
-	background-color: #fff;
-	box-shadow: 0 0 5px #888;
+  font-size: 17px;
+  background-color: #fff;
+  box-shadow: 0 0 5px #888;
 }
 
 /* Content */
-
+/* line 110, ../../sass/base.scss */
 .content-box {
-	display: block;
-	
-	width: auto;
-	
-	padding: .3em;
-	margin: .3em 0;
-	
-	background-color: #FFF;
-	
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	border-color: #95CAE6
-	border-width: 1px;
-	
-	box-sizing: border-box;
+  display: block;
+  width: auto;
+  padding: .3em;
+  margin: .3em 0;
+  background-color: #FFF;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border-color: #95CAE6;
+  border-width: 1px;
+  box-sizing: border-box;
 }
 
+/* line 128, ../../sass/base.scss */
 .content-box-header {
-	font-family: Hammersmith One;
-	font-size: 120%;
+  font-family: Hammersmith One;
+  font-size: 120%;
 }
 
+/* line 133, ../../sass/base.scss */
 .content-box-title {
-	font-size: 110%;
-	font-weight: 500;
+  font-size: 110%;
+  font-weight: 500;
 }
 
+/* line 138, ../../sass/base.scss */
 .wrapper-full {
-	width: 100%;
-	display: inline-block;
+  width: 100%;
+  display: inline-block;
 }
 
+/* line 143, ../../sass/base.scss */
 .wrapper-left {
-	width: 49%;
-	display: inline-block;
+  width: 49%;
+  display: inline-block;
 }
 
+/* line 148, ../../sass/base.scss */
 .wrapper-right {
-	width: 49%;
-	float:right;
-	display: inline-block;
+  width: 49%;
+  float: right;
+  display: inline-block;
 }
 
+/* line 154, ../../sass/base.scss */
 .list-item-hover {
-	padding: .1em .2em;
+  padding: .1em .2em;
 }
 
+/* line 158, ../../sass/base.scss */
 .list-item-hover:hover {
-	background-color: #DDD;
+  background-color: #DDD;
 }
 
 /* Button */
-
+/* line 164, ../../sass/base.scss */
 .button {
-	cursor: pointer;
+  cursor: pointer;
 }
 
+/* line 168, ../../sass/base.scss */
 .small-btn {
-	font-size: 80%;
+  font-size: 80%;
 }
 
+/* line 172, ../../sass/base.scss */
 .large-btn {
-	font-size: 100%;
+  font-size: 100%;
 }
 
+/* line 176, ../../sass/base.scss */
 .huge-btn {
-	font-size: 110%;
+  font-size: 110%;
 }
 
 /* Pop up */
-
+/* line 182, ../../sass/base.scss */
 .popup-box {
-	background-color: #FFF;
-	display: none;
-	position: absolute;
-	z-index: 999;
+  background-color: #FFF;
+  display: none;
+  position: absolute;
+  z-index: 999;
 }
-
+/* line 188, ../../sass/base.scss */
 .popup-box .popup-topbar {
-	
-	background-color: #628FD9;
-	display: block;
-	padding: 10px;
-	border-style: solid;
-	border-width: 0px;
-	border-bottom-width: 2px;
-	
+  background-color: #628FD9;
+  display: block;
+  padding: 10px;
+  border-style: solid;
+  border-width: 0px;
+  border-bottom-width: 2px;
 }
-
-.popup-topbar span {
-	color: #111;
+/* line 197, ../../sass/base.scss */
+.popup-box .popup-topbar span {
+  color: #111;
 }
-
+/* line 202, ../../sass/base.scss */
 .popup-box .popup-close {
-	float: right;
+  float: right;
 }
-
+/* line 206, ../../sass/base.scss */
 .popup-box .popup-main {
-	padding: 10px;
-	display: block;	
+  padding: 10px;
+  display: block;
 }
-
+/* line 211, ../../sass/base.scss */
 .popup-box .popup-title {
-	font-size: 100%;
+  font-size: 100%;
 }
 
+/* line 216, ../../sass/base.scss */
 .popup-background {
-	background-color: rgba(200, 200, 200, .8);
-	top: 0;
-	left: 0;
-	position: absolute;
-	display: block;
+  background-color: rgba(200, 200, 200, 0.8);
+  top: 0;
+  left: 0;
+  position: absolute;
+  display: block;
 }
 
 /* Notifications */
-
+/* line 226, ../../sass/base.scss */
 .notif-error {
-	background-color: #FF4040;
+  background-color: #FF4040;
 }
 
+/* line 230, ../../sass/base.scss */
 .notif-success {
-	background-color: #73E65C;
+  background-color: #73E65C;
 }
-
-
-	

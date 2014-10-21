@@ -1,0 +1,38 @@
+.issue-entry {
+
+	width: 100%;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #333;
+	border-radius: .3em;
+	padding: .1em;
+	margin: .1em 0;
+
+
+	.left-wrapper {
+		display: inline-block;
+		width: 5%;
+	}
+
+	.right-wrapper {
+		display: inline-block;
+		width: 94%;
+	}
+
+	.top-wrapper {
+		display: block;
+
+		height: 50%;
+	}
+
+	.bottom-wrapper {
+		display: block;
+		height: 50%;
+	}
+
+	.issue-reporter-user {
+		float: right;
+	}
+
+
+}

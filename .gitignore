@@ -1,3 +1,6 @@
+# Compass SASS stuff
+.sass-cache
+
 # Logs
 logs
 *.log

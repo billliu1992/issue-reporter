@@ -6,8 +6,15 @@ html
 	body
 		#all-content
 			#header
-				h1 Issue Reporter
+				h1
+					a(href="/") Issue Reporter
 			#main-body
+				- if(messages) {
+					#messages
+						- for(var i = 0; i < messages.length; i++) {
+							div =messages[i].message
+						- }
+				- }
 				block content
 			#footer
 				| Copyright 2014 Bill Liu

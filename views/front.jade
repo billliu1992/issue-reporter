@@ -1,13 +1,23 @@
 extends base
 
 block head_includes
+	link(rel='stylesheet', href='/stylesheets/reporter.css')
 	title Issue Reporter
 
 block content
 	#issue-entries
 		- for(var i = 0; i < issues.length; i++) {
 			.issue-entry
-				span.issue-name = issues[i]
+				.left-wrapper
+					//Placeholder
+					span.issue-votes 0
+				.right-wrapper
+					.top-wrapper
+						span.issue-name=issues[i]["title"]
+					.bottom-wrapper
+						span.issue-priority Priority #{issues[i]["priority"]}
+						//Placeholder
+						span.issue-reporter-user Placeholder Name
 		- }
 
 		.issue-entry
