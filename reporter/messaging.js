@@ -3,6 +3,8 @@ var Message = function() {
 }
 
 Message.prototype = {
+	ERROR : "message-error",
+	SUCCESS : "message-success",
 	hasMessages : function() {
 		return this.messages.length != 0;
 	},
@@ -21,7 +23,7 @@ Message.prototype = {
 		allMessages = this.messages;
 		this.messages = [];
 
-		return this.messages
+		return allMessages
 	}
 }
 

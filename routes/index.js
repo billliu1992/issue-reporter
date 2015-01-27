@@ -1,15 +1,20 @@
 var express = require('express');
-var IssuesDAO = require("../reporter/persistance/issues").IssuesDAO;
+var Issues = require("../reporter/objects/issues").Issues;
+var Users = require("../reporter/objects/users").Users;
 var Message = require("../reporter/messaging").Message;
 var router = express.Router();
 
-var issues = new IssuesDAO();
+var issues = new Issues();
 var message = new Message();
+var users = new Users();
 
 /* Index page */
 router.get("/", function(req, res) {
 
 	issues.getIssues(function(documents) {
+
+		console.log(message.hasMessages());
+
 		res.render('front', {"issues" : documents, "messages" : message.getAllMessages()});
 	});
 });
@@ -44,10 +49,49 @@ router.post("/create", function(req, res) {
 			"votes" : 0
 		}
 
-	issues.createIssue(newIssue);
-	message.addMessage("Successfully created issue!", Message.SUCCESS);
+	issues.createIssue(newIssue, function() {
+		message.addMessage("Successfully created issue!", Message.SUCCESS);
 
-	res.redirect("/create");
+		res.redirect("/");
+	},
+	function() {
+		message.addMessage("Error creating issue", Message.ERROR);
+
+		res.redirect("/create");
+	});
+});
+
+router.post("/login", function(req, res) {
+	var username = req.body["username"];
+	var password = req.body["password"];
+
+	users.checkUserPassword(username, password, function() {
+		message.addMessage("Successfully logged in", Message.SUCCESS);
+		res.redirect("/");
+	},
+	function() {
+		message.addMessage("Error logging in", Message.ERROR);
+		res.redirect("/");
+	});
+
+	
+
+});
+
+router.get("/create/user", function(req, res) {
+	res.render("new_user")
+});
+
+router.post("/create/user", function(req, res) {
+	var username = req.body["username"];
+	var password1 = req.body["password1"];
+	var password2 = req.body["password2"];
+
+	if(password1 === password2) {
+		users.createUser(username, password1);
+	}
+
+	res.redirect("/");
 });
 
 module.exports = router;

@@ -6,14 +6,20 @@ html
 	body
 		#all-content
 			#header
+
+				#login
+					form(action="/login", method="post")
+						input(name="username", type="text")
+						input(name="password", type="password")
+						button Submit
+
 				h1
 					a(href="/") Issue Reporter
 			#main-body
 				- if(messages) {
 					#messages
-						- for(var i = 0; i < messages.length; i++) {
-							div =messages[i].message
-						- }
+						each message in messages
+							div= message.message
 				- }
 				block content
 			#footer
