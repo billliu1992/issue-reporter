@@ -1,4 +1,5 @@
-var ReporterMongoServer = require('./database.js');
+var database = require('../database.js');
+var winston = require("winston");
 
 function Issues() {
 
@@ -18,41 +19,31 @@ function Issues() {
 			}
 		},
 		
-		createIssue : function(issueObj, successCallback, errorCallback) {
-			ReporterMongoServer.client.open(function(err, mClient) {
-				var db = mClient.db("issue_db");
-				
+		createIssue : function(issueObj, callback) {
+			database.getDb(function(error, db) {
 				db.collection("issues").insert(issueObj, function(err, inserted) {
 					if(err !== null) {
-						console.log("Error creating issue: " + err);
-						errorCallback();
+						winston.error(error, {time : Date.now()});
+						callback(err);
 						return;
 					}
 
-					successCallback();
-
-					mClient.close();
+					callback(null, inserted);
 				});
 			});
 		},
 		
 		getIssues : function(callback) {
-			var list = [];
-			
-			ReporterMongoServer.client.open(function(err, mClient) {
-				var db = mClient.db("issue_db");
-
+			database.getDb(function(error, db) {
 				db.collection("issues").find({}, function(err, cursor) {
 
 					cursor.toArray(function(err, documents) {
 						if(err !== null) {
-							console.log(err);
+							winston.error(error, {time : Date.now()});
 							return;
 						}
 
 						callback(documents);
-
-						mClient.close();
 					});
 				});
 			});

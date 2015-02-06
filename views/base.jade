@@ -4,15 +4,22 @@ html
 		block head_includes
 		link(rel='stylesheet', href='/stylesheets/base.css')
 	body
-		#all-content
-			#header
 
-				#login
+		#user-bar
+			#user-bar-content
+				- if(user) {
+				- }
+				- else {
 					form(action="/login", method="post")
 						input(name="username", type="text")
 						input(name="password", type="password")
-						button Submit
+						input(type="submit", value="Log In", class="small-btn")
 
+					a(href="/create/user").button.small-btn Create User
+				- }
+
+		#all-content
+			#header
 				h1
 					a(href="/") Issue Reporter
 			#main-body

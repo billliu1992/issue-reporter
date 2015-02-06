@@ -1,12 +1,12 @@
 .issue-entry {
 
 	width: 100%;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #333;
-	border-radius: .3em;
 	padding: .1em;
 	margin: .1em 0;
+
+	&:hover {
+		background-color: #fff;
+	}
 
 
 	.left-wrapper {
