@@ -6,19 +6,18 @@ block head_includes
 
 block content
 	#issue-entries
-		- for(var i = 0; i < issues.length; i++) {
+		each issue in issues
 			.issue-entry
 				.left-wrapper
 					//Placeholder
 					span.issue-votes 0
 				.right-wrapper
 					.top-wrapper
-						span.issue-name=issues[i]["title"]
+						span.issue-name=issue["name"]
 					.bottom-wrapper
-						span.issue-priority Priority #{issues[i]["priority"]}
+						span.issue-priority Priority #{issue["priority"]}
 						//Placeholder
 						span.issue-reporter-user Placeholder Name
-		- }
 
 		.issue-entry
 			a(href="create") Create a new Issue

@@ -4,24 +4,23 @@ html
 		block head_includes
 		link(rel='stylesheet', href='/stylesheets/base.css')
 	body
-
-		#user-bar
-			#user-bar-content
-				- if(user) {
-				- }
-				- else {
-					form(action="/login", method="post")
-						input(name="username", type="text")
-						input(name="password", type="password")
-						input(type="submit", value="Log In", class="small-btn")
-
-					a(href="/create/user").button.small-btn Create User
-				- }
-
 		#all-content
 			#header
 				h1
 					a(href="/") Issue Reporter
+			#user-bar
+				#user-bar-content
+					- if(user) {
+						#welcome-message Welcome #{user.firstName}
+					- }
+					- else {
+						form(action="/login", method="post")
+							input(name="username", type="text")
+							input(name="password", type="password")
+							input(type="submit", value="Log In", class="small-btn")
+
+						a(href="/create/user").button.small-btn Create User
+					- }
 			#main-body
 				- if(messages) {
 					#messages

@@ -41,7 +41,8 @@ passport.deserializeUser(function(id, done) {
 	});
 });
 
-router.post('/login', passport.authenticate('local'),
+/* Routes */
+router.post('/login', passport.authenticate('local', { successRedirect: '/',failureRedirect: '/'}),
 	function(req, res, next) {
 		res.redirect("/");
 	}
@@ -57,7 +58,7 @@ router.post("/create/user", function(req, res) {
 	var password2 = req.body["password2"];
 
 	if(password1 === password2) {
-		users.createUser(username, password1);
+		users.createUser(username, "Test", "Test", password1, function() {});
 	}
 
 	res.redirect("/");
@@ -66,7 +67,10 @@ router.post("/create/user", function(req, res) {
 
 /* Index page */
 router.get("/", function(req, res) {
-	issues.getIssues(function(documents) {
+	issues.getIssues(function(err, documents) {
+
+		console.log(documents);
+
 		res.render('front', {"issues" : documents, "messages" : message.getAllMessages(), "user" : req.user});
 	});
 });
@@ -83,22 +87,25 @@ router.get("/create", function(req, res) {
 
 /* Handle POST data for creating issues */
 router.post("/create", function(req, res) {
+
+	if(!req.user) {
+		message.addMessage("Not logged in!", Message.ERROR);
+		res.redirect("/");
+		return;
+	}
+
 	var name = req.body["issue-name"];
 	var body = req.body["issue-body"];
 	var priority = req.body["issue-priority"];
 	var internal = req.body["issue-internal"];
 
 	var newIssue = {
-			"title" : name, 
-			"body" : body,
-			"type" : "Test",
+			"name" : name, 
+			"description" : body,
+			"issueType" : "Test",
 			"priority" : priority,
-			"create_date" : new Date(),
-			"modified_date" : new Date(),
-			"reporter" : 0,
-			"assignee" : 0,
+			"reporterId" : req.user._id,
 			"internal" : internal,
-			"votes" : 0
 		}
 
 	issues.createIssue(newIssue, function(err, issue) {
