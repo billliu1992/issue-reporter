@@ -1,8 +1,8 @@
-var Message = function() {
+var MessageService = function() {
 	this.messages = [];
 }
 
-Message.prototype = {
+MessageService.prototype = {
 	ERROR : "message-error",
 	SUCCESS : "message-success",
 	hasMessages : function() {
@@ -27,4 +27,4 @@ Message.prototype = {
 	}
 }
 
-exports.Message = Message;
+exports.Message = new MessageService();

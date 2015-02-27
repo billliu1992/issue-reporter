@@ -1,7 +1,7 @@
 var database = require('../database.js');
 var winston = require("winston");
 
-function Projects() {
+function ProjectsService() {
 
 	function createProjectObj(projectObj, callback) {
 		database.getDb(function(error, db) {
@@ -45,7 +45,7 @@ function Projects() {
 	}
 }
 
-function Issues() {
+function IssuesService() {
 
 	var reqFields = ["name", "description", "issueType", "reporterId", "projectId"];
 
@@ -88,9 +88,13 @@ function Issues() {
 			}
 		},
 		
-		getIssues : function(callback) {
+		getIssues : function(callback, limitNumber) {
 			database.getDb(function(error, db) {
 				db.collection("issues").find({}, function(err, cursor) {
+
+					if(limitNumber) {
+						cursor.limit(limitNumber);
+					}
 
 					cursor.toArray(function(err, documents) {
 						if(err !== null) {
@@ -106,5 +110,5 @@ function Issues() {
 	}
 }
 
-exports.Issues = Issues;
-exports.Projects = Projects;
+exports.Issues = new IssuesService();
+exports.Projects = new ProjectsService();

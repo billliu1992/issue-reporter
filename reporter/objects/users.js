@@ -4,13 +4,13 @@ var MongoClient = require("mongodb").MongoClient;
 var Server = require("mongodb").Server;
 var database = require('../database.js');
 
-var Roles = function() {
+var RolesService = function() {
 	return {
 		createRole : function(name, projectId, callback) {
 			var roleObj = {
 				name : name,
-				projectId : projectId,
-				permissions : []
+				permissions : [],
+				projectId : projectId
 			}
 
 			database.getDb(function(db, err) {
@@ -26,12 +26,13 @@ var Roles = function() {
 				);
 			});
 		},
-		getRole : function(name, projectId, callback) {
-			database.getDb(function(error, db) {
-				db.collection("users").find({ name : name, projectId : projectId }, function(error, cursor) {
 
+		getProjectRolesByUserId : function(userId, projectId, callback) {
+			database.getDb(function(error, db) {
+				db.collection("users").find({ _id : userId }, function(error, cursor) {
 					if(error !== null) {
 						winston.error(error, {time: Date.now()});
+						callback(error);
 						return;
 					}
 
@@ -39,18 +40,43 @@ var Roles = function() {
 						if(err !== null) {
 							winston.error(error, {time: Date.now()});
 							callback(err);
+							return;
 						}
 
-						if(documents.length !== 0) {
-							callback(null, documents[0]);
-						}
-						else {
-							callback("Role not found in project: " + projectId + " with name: " + name);
-						}
+						db.collection("roles").find({ _id : { $in : documents[0].roles }, projectId : projectId }, function(error, roleCursor) {
+							cursor.toArray(function(roleError, roleDocs) {
+								if(roleError !== null) {
+									winston.error(error, {time: Date.now()});
+									callback(roleError);
+									return;
+								}
+
+								callback(null, roleDocs);
+							});
+						});
+						
 					});
 				});
 			});
 		},
+
+		checkUserPermission : function(userObj, projectId, permission, callback) {
+			getRolesByUserId(userObj._id, projectId, function(err, roles) {
+				if(err !== null) {
+					callback(err);
+					return;
+				}
+
+				for(role in roles) {
+					if(permission in role.permissions) {
+						callback(null, true);
+					}
+				}
+
+				callback(null, false);
+			});
+		},
+
 		addPermission : function(name, projectId, permission, callback) {
 			database.getDb(function(error, db) {
 				db.collection("roles").update( {name : name, projectId : projectId}, 
@@ -66,11 +92,28 @@ var Roles = function() {
 					}
 				);
 			});
+		},
+
+		removePermission : function(name, projectId, permission, callback) {
+			database.getDb(function(error, db) {
+				db.collection("roles").update( {name : name, projectId : projectId}, 
+					{ $pull : { permissions : permission } },
+					function(err, result) {
+						if(err !== null) {
+							winston.error(err);
+							callback(err);
+							return;
+						}
+
+						callback(null, result);
+					}
+				);
+			});
 		}
 	}
 }
 
-var Users = function() {
+var UsersService = function() {
 	var passSalt = bcrypt.genSaltSync();
 
 	return {
@@ -87,6 +130,7 @@ var Users = function() {
 						password : passHash,
 						createDate : Date.now(),
 						lastLoggedInDate : Date.now(),
+						roles : []
 					}
 
 					database.getDb(function(err, db) {
@@ -192,9 +236,9 @@ var Users = function() {
 					callback("Wrong password");
 				}
 			});
-		}
+		},
 	}
 }
 
-exports.Users = Users;
-exports.Roles = Roles;
+exports.Users = new UsersService();
+exports.Roles = new RolesService();

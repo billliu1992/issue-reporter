@@ -1,31 +1,32 @@
 extends base
 
 block head_includes
-	link(rel='stylesheet', href='/stylesheets/reporter.css')
+	link(rel='stylesheet', href='/stylesheets/newissue.css')
 	title Create Issue
 
 block content
-	form(method="POST", action="")
-		.form-field
-			label(for="issue-name") Issue
-			input(type="text", id="issue-name", name="issue-name")
+	#new-issue.content-block
+		form(method="POST", action="")
+			.form-field.text-field
+				label(for="issue-name") Issue
+				input(type="text", id="issue-name", name="issue-name")
 
-		.form-field
-			label(for="issue-body") Body
-			textarea(name="issue-body", id="issue-body")
+			.form-field.text-field
+				label(for="issue-body") Body
+				textarea(name="issue-body", id="issue-body")
 
-		.form-field
-			label(for="issue-priority") Priority
-			select(name="issue-priority", id="issue-priority")
-				option(value="0", selected) Select a Priority
-				option(value="1") Critical
-				option(value="2") High
-				option(value="3") Medium
-				option(value="4") Low
-				option(value="5") Wishful
+			.form-field.inline-field
+				label(for="issue-priority") Priority
+				select(name="issue-priority", id="issue-priority")
+					option(value="0", selected) Select a Priority
+					option(value="1") Critical
+					option(value="2") High
+					option(value="3") Medium
+					option(value="4") Low
+					option(value="5") Wishful
 
-		.form-field
-			label(for="issue-internal") Internal?
-			input(type="checkbox" name="issue-internal", id="issue-internal")
+			.form-field.inline-field
+				input(type="checkbox" name="issue-internal", id="issue-internal")
+				label(for="issue-internal") Internal?
 
-		button Create Issue
+			button Create Issue

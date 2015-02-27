@@ -1,25 +1,28 @@
 extends base
 
 block head_includes
-	link(rel='stylesheet', href='/stylesheets/reporter.css')
+	link(rel='stylesheet', href='/stylesheets/newuser.css')
 	title Issue Reporter
 
 block content
-	form(method="POST")
-		.form-field
-			input(type="text", name="username", placeholder="E-mail")
+	#new-user
+		h2#new-user-header Create a new User
 
-		.form-field
-			input(type="password", name="password1", placeholder="Password")
+		form(method="POST")
+			.form-field
+				input(type="text", name="username", placeholder="E-mail")
 
-		.form-field
-			input(type="password", name="password2", placeholder="Password (again)")
+			.form-field
+				input(type="password", name="password1", placeholder="Password")
 
-		.form-field
-			input(type="text", name="first-name", placeholder="First Name")
+			.form-field
+				input(type="password", name="password2", placeholder="Password (again)")
 
-		.form-field
-			input(type="text", name="last-name", placeholder="Last Name")
+			.form-field
+				input(type="text", name="first-name", placeholder="First Name")
 
-		.form-field
-			button Create User
+			.form-field
+				input(type="text", name="last-name", placeholder="Last Name")
+
+			.form-field
+				button Create User

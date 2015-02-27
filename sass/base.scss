@@ -1,5 +1,19 @@
 @import 'globals';
 
+/* Media */
+@media all and (max-height: 500px) {
+	body {
+		font-size: 9px;
+	}
+}
+
+@media all and (min-height: 500px) {
+	body {
+		font-size: 20px;
+	}
+}
+
+
 /* overrides */
 html, body {
 	margin: 0;
@@ -8,7 +22,6 @@ html, body {
 
 body {
 	background-color: #FFF;
-	font-size: 130%;
 	font-family: Arial;
 	margin: 0px;
 }
@@ -127,7 +140,28 @@ body {
 	display: block;
 	margin: .5em .1em;
 
+	.label { 
+		margin-top: .2em;
+	}
+}
+
+.text-field {
 	label {
+		display: block;
+	}
+
+	textarea,
+	input[type="text"] {
+		width: 100%;
+	}
+}
+
+.inline-field {
+	label {
+		margin: 0 1em;
+	}
+	input {
+
 	}
 }
 

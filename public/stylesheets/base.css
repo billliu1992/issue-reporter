@@ -1,41 +1,53 @@
+/* Media */
+@media all and (max-height: 500px) {
+  /* line 5, ../../sass/base.scss */
+  body {
+    font-size: 9px;
+  }
+}
+@media all and (min-height: 500px) {
+  /* line 11, ../../sass/base.scss */
+  body {
+    font-size: 20px;
+  }
+}
 /* overrides */
-/* line 4, ../../sass/base.scss */
+/* line 18, ../../sass/base.scss */
 html, body {
   margin: 0;
   height: 100%;
 }
 
-/* line 9, ../../sass/base.scss */
+/* line 23, ../../sass/base.scss */
 body {
   background-color: #FFF;
-  font-size: 130%;
   font-family: Arial;
   margin: 0px;
 }
 
-/* line 16, ../../sass/base.scss */
+/* line 29, ../../sass/base.scss */
 hr {
   margin: .6em .2em;
   height: 3px;
   background-color: #555;
 }
 
-/* line 22, ../../sass/base.scss */
+/* line 35, ../../sass/base.scss */
 a {
   text-decoration: none;
 }
 
-/* line 26, ../../sass/base.scss */
+/* line 39, ../../sass/base.scss */
 a, a:visited {
   color: #B2577A;
 }
 
-/* line 30, ../../sass/base.scss */
+/* line 43, ../../sass/base.scss */
 a:hover {
   color: #6C2D58;
 }
 
-/* line 35, ../../sass/base.scss */
+/* line 48, ../../sass/base.scss */
 button,
 input[type="button"],
 input[type="submit"],
@@ -50,21 +62,21 @@ a.button {
   font-size: 1em;
   line-height: 1.1;
 }
-/* line 52, ../../sass/base.scss */
+/* line 65, ../../sass/base.scss */
 button.small-btn,
 input[type="button"].small-btn,
 input[type="submit"].small-btn,
 a.button.small-btn {
   font-size: 80%;
 }
-/* line 56, ../../sass/base.scss */
+/* line 69, ../../sass/base.scss */
 button.large-btn,
 input[type="button"].large-btn,
 input[type="submit"].large-btn,
 a.button.large-btn {
   font-size: 100%;
 }
-/* line 60, ../../sass/base.scss */
+/* line 73, ../../sass/base.scss */
 button.huge-btn,
 input[type="button"].huge-btn,
 input[type="submit"].huge-btn,
@@ -73,30 +85,30 @@ a.button.huge-btn {
 }
 
 /* User bar */
-/* line 67, ../../sass/base.scss */
+/* line 80, ../../sass/base.scss */
 #user-bar {
   width: 100%;
   height: 1.8em;
   background-color: #fff;
 }
-/* line 72, ../../sass/base.scss */
+/* line 85, ../../sass/base.scss */
 #user-bar #user-bar-content {
   margin-right: 20%;
   display: inline-block;
   float: right;
 }
-/* line 78, ../../sass/base.scss */
+/* line 91, ../../sass/base.scss */
 #user-bar #user-bar-content form {
   display: inline-block;
 }
 
 /* main content */
-/* line 87, ../../sass/base.scss */
+/* line 100, ../../sass/base.scss */
 body {
   background-color: #A1E6E0;
 }
 
-/* line 91, ../../sass/base.scss */
+/* line 104, ../../sass/base.scss */
 #all-content {
   width: 80%;
   min-width: 700px;
@@ -104,23 +116,23 @@ body {
   margin-left: auto;
   height: 100%;
 }
-/* line 98, ../../sass/base.scss */
+/* line 111, ../../sass/base.scss */
 #all-content #header {
   height: 5em;
   overflow: auto;
   text-align: center;
 }
-/* line 107, ../../sass/base.scss */
+/* line 120, ../../sass/base.scss */
 #all-content #main-body {
   display: block;
   min-height: 100%;
   margin-bottom: 10%;
 }
-/* line 112, ../../sass/base.scss */
+/* line 125, ../../sass/base.scss */
 #all-content #main-body .content-block {
   background-color: #FFF;
 }
-/* line 118, ../../sass/base.scss */
+/* line 131, ../../sass/base.scss */
 #all-content #footer {
   width: 100%;
   bottom: 0;
@@ -128,27 +140,46 @@ body {
 }
 
 /* Forms */
-/* line 126, ../../sass/base.scss */
+/* line 139, ../../sass/base.scss */
 .form-field {
   display: block;
   margin: .5em .1em;
 }
+/* line 143, ../../sass/base.scss */
+.form-field .label {
+  margin-top: .2em;
+}
+
+/* line 149, ../../sass/base.scss */
+.text-field label {
+  display: block;
+}
+/* line 153, ../../sass/base.scss */
+.text-field textarea,
+.text-field input[type="text"] {
+  width: 100%;
+}
+
+/* line 160, ../../sass/base.scss */
+.inline-field label {
+  margin: 0 1em;
+}
 
 /* Button */
-/* line 136, ../../sass/base.scss */
+/* line 170, ../../sass/base.scss */
 .button {
   cursor: pointer;
 }
 
 /* Pop up */
-/* line 142, ../../sass/base.scss */
+/* line 176, ../../sass/base.scss */
 .popup-box {
   background-color: #FFF;
   display: none;
   position: absolute;
   z-index: 999;
 }
-/* line 148, ../../sass/base.scss */
+/* line 182, ../../sass/base.scss */
 .popup-box .popup-topbar {
   background-color: #628FD9;
   display: block;
@@ -157,25 +188,25 @@ body {
   border-width: 0px;
   border-bottom-width: 2px;
 }
-/* line 157, ../../sass/base.scss */
+/* line 191, ../../sass/base.scss */
 .popup-box .popup-topbar span {
   color: #111;
 }
-/* line 162, ../../sass/base.scss */
+/* line 196, ../../sass/base.scss */
 .popup-box .popup-close {
   float: right;
 }
-/* line 166, ../../sass/base.scss */
+/* line 200, ../../sass/base.scss */
 .popup-box .popup-main {
   padding: 10px;
   display: block;
 }
-/* line 171, ../../sass/base.scss */
+/* line 205, ../../sass/base.scss */
 .popup-box .popup-title {
   font-size: 100%;
 }
 
-/* line 176, ../../sass/base.scss */
+/* line 210, ../../sass/base.scss */
 .popup-background {
   background-color: rgba(200, 200, 200, 0.8);
   top: 0;
@@ -185,12 +216,12 @@ body {
 }
 
 /* Notifications */
-/* line 186, ../../sass/base.scss */
+/* line 220, ../../sass/base.scss */
 .notif-error {
   background-color: #FF4040;
 }
 
-/* line 190, ../../sass/base.scss */
+/* line 224, ../../sass/base.scss */
 .notif-success {
   background-color: #73E65C;
 }
