@@ -4,11 +4,7 @@ html
 		block head_includes
 		link(rel='stylesheet', href='/stylesheets/base.css')
 	body
-		#all-content
-			#header
-				h1
-					a(href="/") Issue Reporter
-			#user-bar
+		#user-bar
 				#user-bar-content
 					- if(user) {
 						#welcome-message Welcome #{user.firstName}
@@ -21,6 +17,12 @@ html
 
 						a(href="/create/user").button.small-btn Create User
 					- }
+
+		#all-content
+			#header
+				h1
+					a(href="/") Issue Reporter
+			
 			#main-body
 				- if(messages) {
 					#messages

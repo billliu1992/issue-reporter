@@ -1,38 +1,56 @@
-.issue-entry {
+#left-wrapper {
+	vertical-align: top;
+	width: 20%;
+	display: inline-block;
 
-	width: 100%;
-	padding: .1em;
-	margin: .1em 0;
-
-	&:hover {
-		background-color: #fff;
+	#side-bar {
+		margin: .5em;
+		padding: .2em;
 	}
+}
 
+#right-wrapper {
+	vertical-align: top;
+	width: 70%;
+	display: inline-block;
 
-	.left-wrapper {
-		display: inline-block;
-		width: 5%;
-	}
-
-	.right-wrapper {
-		display: inline-block;
-		width: 94%;
-	}
-
-	.top-wrapper {
+	#issue-entries {
+		margin: .5em;
 		display: block;
 
-		height: 50%;
+
+		.issue-entry {
+
+			padding: .5em;
+
+			&:hover {
+				background-color: #EEEEEE;
+			}
+
+			.left-wrapper {
+				display: inline-block;
+				width: 5%;
+			}
+
+			.right-wrapper {
+				display: inline-block;
+				width: 94%;
+			}
+
+			.top-wrapper {
+				display: block;
+
+				height: 50%;
+			}
+
+			.bottom-wrapper {
+				display: block;
+				height: 50%;
+			}
+
+			.issue-reporter-user {
+				float: right;
+			}
+		}
 	}
-
-	.bottom-wrapper {
-		display: block;
-		height: 50%;
-	}
-
-	.issue-reporter-user {
-		float: right;
-	}
-
-
 }

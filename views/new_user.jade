@@ -6,15 +6,20 @@ block head_includes
 
 block content
 	form(method="POST")
-		.input-field
-			label Username:
-			input(type="text", name="username")
+		.form-field
+			input(type="text", name="username", placeholder="E-mail")
 
-		.input-field
-			label Password:
-			input(type="password", name="password1")
-			label Password (again):
-			input(type="password", name="password2")
+		.form-field
+			input(type="password", name="password1", placeholder="Password")
 
-		.input-field
+		.form-field
+			input(type="password", name="password2", placeholder="Password (again)")
+
+		.form-field
+			input(type="text", name="first-name", placeholder="First Name")
+
+		.form-field
+			input(type="text", name="last-name", placeholder="Last Name")
+
+		.form-field
 			button Create User

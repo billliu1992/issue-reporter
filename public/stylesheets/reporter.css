@@ -1,34 +1,55 @@
 /* line 1, ../../sass/reporter.scss */
-.issue-entry {
-  width: 100%;
-  padding: .1em;
-  margin: .1em 0;
+#left-wrapper {
+  vertical-align: top;
+  width: 20%;
+  display: inline-block;
 }
-/* line 7, ../../sass/reporter.scss */
-.issue-entry:hover {
-  background-color: #fff;
+/* line 6, ../../sass/reporter.scss */
+#left-wrapper #side-bar {
+  margin: .5em;
+  padding: .2em;
 }
+
 /* line 12, ../../sass/reporter.scss */
-.issue-entry .left-wrapper {
+#right-wrapper {
+  vertical-align: top;
+  width: 70%;
+  display: inline-block;
+}
+/* line 17, ../../sass/reporter.scss */
+#right-wrapper #issue-entries {
+  margin: .5em;
+  display: block;
+}
+/* line 22, ../../sass/reporter.scss */
+#right-wrapper #issue-entries .issue-entry {
+  padding: .5em;
+}
+/* line 26, ../../sass/reporter.scss */
+#right-wrapper #issue-entries .issue-entry:hover {
+  background-color: #EEEEEE;
+}
+/* line 30, ../../sass/reporter.scss */
+#right-wrapper #issue-entries .issue-entry .left-wrapper {
   display: inline-block;
   width: 5%;
 }
-/* line 17, ../../sass/reporter.scss */
-.issue-entry .right-wrapper {
+/* line 35, ../../sass/reporter.scss */
+#right-wrapper #issue-entries .issue-entry .right-wrapper {
   display: inline-block;
   width: 94%;
 }
-/* line 22, ../../sass/reporter.scss */
-.issue-entry .top-wrapper {
+/* line 40, ../../sass/reporter.scss */
+#right-wrapper #issue-entries .issue-entry .top-wrapper {
   display: block;
   height: 50%;
 }
-/* line 28, ../../sass/reporter.scss */
-.issue-entry .bottom-wrapper {
+/* line 46, ../../sass/reporter.scss */
+#right-wrapper #issue-entries .issue-entry .bottom-wrapper {
   display: block;
   height: 50%;
 }
-/* line 33, ../../sass/reporter.scss */
-.issue-entry .issue-reporter-user {
+/* line 51, ../../sass/reporter.scss */
+#right-wrapper #issue-entries .issue-entry .issue-reporter-user {
   float: right;
 }
