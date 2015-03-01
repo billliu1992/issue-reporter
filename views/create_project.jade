@@ -1,0 +1,28 @@
+extends base
+
+block head_includes
+	link(rel='stylesheet', href='/stylesheets/newissue.css')
+	title Create Issue
+
+block content
+	#new-issue.content-block
+		h2 Create a Project
+
+		form(method="POST", action="")
+			.form-field.text-field
+				label(for="project-name") Project Name
+				input(type="text", id="project-name", name="project-name", placeholder="My Cool Project")
+
+			.form-field.text-field
+				label(for="project-url") Project Website
+				input(type="text", id="project-url", name="project-url", placeholder="http://example.com")
+
+			.form-field.text-field
+				label(for="project-desc") Project Description
+				textarea(name="project-desc", id="project-desc", placeholder="A short description of your project")
+
+			.form-field.inline-field
+				input(type="checkbox" name="project-hidden", id="project-hidden")
+				label(for="project-hidden") Hidden
+
+			button Create Project

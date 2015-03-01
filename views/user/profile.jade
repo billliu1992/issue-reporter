@@ -1,8 +1,24 @@
-extends base
+extends ../base
 
 block head_includes
 	link(rel='stylesheet', href='/stylesheets/profile.css')
 	title Issue Reporter - #{publicUser.firstName} #{publicUser.lastName}
 
 block content
-	#user-infobar
+	#profile-wrapper
+		#user-menu-bar
+			a(href="") Profile
+			a(href="") Edit
+			a(href="permissions/") Permissions
+		#user-info
+			#quick-summary.content-block
+				span #{publicUser.firstName} #{publicUser.lastName}
+
+			#roles.content-block
+				| Roles here
+
+			#assigned-issues.content-block
+				| Issues here
+
+			#activity.content-block
+				| Activity here

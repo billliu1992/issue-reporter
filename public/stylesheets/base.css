@@ -2,7 +2,7 @@
 @media all and (max-height: 500px) {
   /* line 5, ../../sass/base.scss */
   body {
-    font-size: 9px;
+    /* font-size: 9px; */
   }
 }
 @media all and (min-height: 500px) {
@@ -140,46 +140,46 @@ body {
 }
 
 /* Forms */
-/* line 139, ../../sass/base.scss */
+/* line 143, ../../sass/base.scss */
 .form-field {
   display: block;
   margin: .5em .1em;
 }
-/* line 143, ../../sass/base.scss */
+/* line 147, ../../sass/base.scss */
 .form-field .label {
   margin-top: .2em;
 }
 
-/* line 149, ../../sass/base.scss */
+/* line 153, ../../sass/base.scss */
 .text-field label {
   display: block;
 }
-/* line 153, ../../sass/base.scss */
+/* line 157, ../../sass/base.scss */
 .text-field textarea,
 .text-field input[type="text"] {
   width: 100%;
 }
 
-/* line 160, ../../sass/base.scss */
-.inline-field label {
+/* line 167, ../../sass/base.scss */
+.inline-field select {
   margin: 0 1em;
 }
 
 /* Button */
-/* line 170, ../../sass/base.scss */
+/* line 177, ../../sass/base.scss */
 .button {
   cursor: pointer;
 }
 
 /* Pop up */
-/* line 176, ../../sass/base.scss */
+/* line 183, ../../sass/base.scss */
 .popup-box {
   background-color: #FFF;
   display: none;
   position: absolute;
   z-index: 999;
 }
-/* line 182, ../../sass/base.scss */
+/* line 189, ../../sass/base.scss */
 .popup-box .popup-topbar {
   background-color: #628FD9;
   display: block;
@@ -188,25 +188,25 @@ body {
   border-width: 0px;
   border-bottom-width: 2px;
 }
-/* line 191, ../../sass/base.scss */
+/* line 198, ../../sass/base.scss */
 .popup-box .popup-topbar span {
   color: #111;
 }
-/* line 196, ../../sass/base.scss */
+/* line 203, ../../sass/base.scss */
 .popup-box .popup-close {
   float: right;
 }
-/* line 200, ../../sass/base.scss */
+/* line 207, ../../sass/base.scss */
 .popup-box .popup-main {
   padding: 10px;
   display: block;
 }
-/* line 205, ../../sass/base.scss */
+/* line 212, ../../sass/base.scss */
 .popup-box .popup-title {
   font-size: 100%;
 }
 
-/* line 210, ../../sass/base.scss */
+/* line 217, ../../sass/base.scss */
 .popup-background {
   background-color: rgba(200, 200, 200, 0.8);
   top: 0;
@@ -216,12 +216,12 @@ body {
 }
 
 /* Notifications */
-/* line 220, ../../sass/base.scss */
+/* line 227, ../../sass/base.scss */
 .notif-error {
   background-color: #FF4040;
 }
 
-/* line 224, ../../sass/base.scss */
+/* line 231, ../../sass/base.scss */
 .notif-success {
   background-color: #73E65C;
 }

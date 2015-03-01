@@ -5,15 +5,12 @@ block head_includes
 	title Issue Reporter
 
 block content
+	#project-name
+		#{project.name}
 	#left-wrapper
 		#side-bar.content-block
-			span Projects
-			each project in projects
-				.project-entry
-					a(href="/project/#{project.slug}/") #{project.name}
-					#{project.name}
-			.project-entry
-				a(href="/project/create") Create new Project
+			| Search Me
+			input(type="text", name="search-query")
 
 	#right-wrapper
 		#issue-entries.content-block
@@ -28,4 +25,6 @@ block content
 						.bottom-wrapper
 							span.issue-priority Priority #{issue["priority"]}
 							//Placeholder
-							span.issue-reporter-user Placeholder Name
+							span.issue-reporter-user #{issue.reporter.name}
+			.issue-entry
+				a(href="create") Create a new Issue

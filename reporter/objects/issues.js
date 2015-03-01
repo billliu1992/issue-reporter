@@ -17,15 +17,40 @@ function ProjectsService() {
 		});
 	}
 
+	function isSlugAvailable(potentialSlug, callback) {
+		database.getDb(function(error, db) {
+			db.collection("projects").find({slug : potentialSlug}, function(err, cursor) {
+				cursor.nextObject(function(err, doc) {
+					if(err !== null) {
+						winston.error(error, {time : Date.now()});
+						callback(err);
+						return;
+					}
+					
+					callback(doc === null);
+				});
+			});
+		});
+	}
+
 	return {
-		createProject : function(projectName, projectUrl, hidden, callback) {
+		createProject : function(projectName, projectDesc, projectUrl, hidden, callback) {
 			var projectObj = {
 				name : projectName,
+				description: projectDesc,
 				url : projectUrl,
-				hidden : hidden
+				hidden : hidden,
+				slug : this.createProjectSlug(projectName)
 			}
 
-			createProjectObj(projectObj, callback);
+			isSlugAvailable(projectObj.slug, function(avail) {
+				if(avail) {
+					createProjectObj(projectObj, callback);
+				}
+				else {
+					callback("Project name is not available");
+				}
+			});
 		},
 
 		getProjects : function(callback) {
@@ -41,6 +66,31 @@ function ProjectsService() {
 					});
 				});
 			});
+		},
+
+		getProjectBySlug : function(slug, callback) {
+			database.getDb(function(error, db) {
+				db.collection("projects").find({slug : slug}, function(err, cursor) {
+					cursor.nextObject(function(err, doc) {
+						if(err !== null) {
+							winston.error(error, {time : Date.now()});
+							callback(err);
+							return;
+						}
+						else if(doc == null) {
+							winston.error("Did not get project with slug: " + slug, {time : Date.now()});
+							callback("Did not get project with slug: " + slug);
+							return;
+						}
+
+						callback(null, doc);
+					});
+				});
+			});
+		},
+
+		createProjectSlug : function(fullProjectName) {
+			return fullProjectName.toLowerCase().replace(" ", "_");
 		}
 	}
 }
@@ -101,6 +151,24 @@ function IssuesService() {
 							winston.error(error, {time : Date.now()});
 							return;
 						}
+
+						callback(null, documents);
+					});
+				});
+			});
+		},
+
+		getIssuesOfProject : function(projectId, callback) {
+
+			database.getDb(function(error, db) {
+				db.collection("issues").find({projectId : projectId}, function(err, cursor) {
+					cursor.toArray(function(err, documents) {
+						if(err !== null) {
+							winston.error(error, {time : Date.now()});
+							return;
+						}
+
+						console.log(documents.length);
 
 						callback(null, documents);
 					});

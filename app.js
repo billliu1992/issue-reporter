@@ -10,7 +10,7 @@ var passport = require('passport');
 var routes = require('./routes/index');
 var userRoutes = require('./routes/user-routes');
 var issueRoutes = require('./routes/issue-routes');
-var projectRoutes = require(".routes/project-routes");
+var projectRoutes = require("./routes/project-routes");
 
 var app = express();
 
@@ -29,8 +29,8 @@ app.use(session({ secret : 'sessionSec', resave: false, saveUninitialized: true 
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/', routes);
-app.use("/user/", userRoutes);
-app.use("/issue/", issueRoutes);
+app.use("/", userRoutes);
+app.use("/", issueRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -3,7 +3,7 @@
 /* Media */
 @media all and (max-height: 500px) {
 	body {
-		font-size: 9px;
+		/* font-size: 9px; */
 	}
 }
 
@@ -133,6 +133,10 @@ body {
 		bottom: 0;
 		height: 5em;
 	}
+
+	.white-box {
+		
+	}
 }
 
 /* Forms */
@@ -158,10 +162,13 @@ body {
 
 .inline-field {
 	label {
+	}
+
+	select {
 		margin: 0 1em;
 	}
-	input {
 
+	input {
 	}
 }
 

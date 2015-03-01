@@ -7,15 +7,16 @@ html
 		#user-bar
 				#user-bar-content
 					- if(user) {
-						#welcome-message Welcome #{user.firstName}
+						#welcome-message 
+							a(href="/user/#{user._id}") Welcome #{user.firstName}
 					- }
 					- else {
-						form(action="/login", method="post")
+						form(action="/user/login", method="post")
 							input(name="username", type="text")
 							input(name="password", type="password")
 							input(type="submit", value="Log In", class="small-btn")
 
-						a(href="/create/user").button.small-btn Create User
+						a(href="/user/create").button.small-btn Create User
 					- }
 
 		#all-content
