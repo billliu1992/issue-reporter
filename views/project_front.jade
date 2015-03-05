@@ -15,16 +15,17 @@ block content
 	#right-wrapper
 		#issue-entries.content-block
 			each issue in issues
-				.issue-entry
-					.left-wrapper
-						//Placeholder
-						span.issue-votes 0
-					.right-wrapper
-						.top-wrapper
-							span.issue-name=issue["name"]
-						.bottom-wrapper
-							span.issue-priority Priority #{issue["priority"]}
+				a(href="issues/#{issue._id}")
+					.issue-entry
+						.left-wrapper
 							//Placeholder
-							span.issue-reporter-user #{issue.reporter.name}
+							span.issue-votes 0
+						.right-wrapper
+							.top-wrapper
+								span.issue-name=issue["name"]
+							.bottom-wrapper
+								span.issue-priority Priority #{issue["priority"]}
+								//Placeholder
+								span.issue-reporter-user #{issue.reporter.name}
 			.issue-entry
 				a(href="create") Create a new Issue

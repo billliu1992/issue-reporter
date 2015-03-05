@@ -1,0 +1,10 @@
+/* line 1, ../../sass/issue.scss */
+#issue-wrapper {
+  overflow: hidden;
+}
+
+/* line 5, ../../sass/issue.scss */
+#issue-view {
+  margin: 1em 2em;
+  overflow: hidden;
+}

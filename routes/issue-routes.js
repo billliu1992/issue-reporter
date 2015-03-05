@@ -52,7 +52,17 @@ router.get("/project/:project_slug/", function(req, res) {
 
 /* Page for a single issue */
 router.get("/project/:project_slug/issues/:issue_id", function(req, res) {
-	res.send("HELLO" + req.params.issue_id);	//DO SOMETHING USEFUL
+
+	var issueId = req.params.issue_id
+
+	Issues.getIssue(ObjectID(issueId), function(err, issue) {
+		if(err !== null) {
+			Message.addMessage(err, Message.ERROR);
+			return res.redirect("/");
+		}
+
+		res.render("issue", {issue : issue});
+	});
 });
 
 /* Page to create an issue */
@@ -75,29 +85,31 @@ router.post("/project/:project_slug/create", function(req, res) {
 	var internal = req.body["issue-internal"];	
 	var project = req.params.project_slug
 
+	Projects.getProjectBySlug(project, function(err, project) {
+		var newIssue = {
+				"name" : name, 
+				"description" : body,
+				"issueType" : "Test",
+				"priority" : priority,
+				"reporter" : {
+					"name" : req.user.firstName + " " + req.user.lastName,
+					"id" : req.user._id
+				},
+				"projectId" : project._id,
+				"internal" : internal,
+			}
 
-	var newIssue = {
-			"name" : name, 
-			"description" : body,
-			"issueType" : "Test",
-			"priority" : priority,
-			"reporter" : {
-				"name" : req.user.firstName + " " + req.user.lastName,
-				"id" : req.user._id
-			},
-			"internal" : internal,
-		}
+		Issues.createIssue(newIssue, function(err, issue) {
+			if(err) {
+				Message.addMessage("Error creating issue", Message.ERROR);
 
-	Issues.createIssue(newIssue, function(err, issue) {
-		if(err) {
-			Message.addMessage("Error creating issue", Message.ERROR);
+				res.redirect("/project/" + req.params.project_slug + "/");
+				return;
+			}
+			Message.addMessage("Successfully created issue!", Message.SUCCESS);
 
-			res.redirect("/create");
-			return;
-		}
-		Message.addMessage("Successfully created issue!", Message.SUCCESS);
-
-		res.redirect("/");	
+			res.redirect("/");	
+		});
 	});
 });
 

@@ -97,26 +97,21 @@ function ProjectsService() {
 
 function IssuesService() {
 
-	var reqFields = ["name", "description", "issueType", "reporterId", "projectId"];
+	var reqFields = ["name", "description", "issueType", "reporter", "projectId"];
 
-	function getMissingFields(obj) {
-		var missingFields = [];
-
-		for(field in reqFields) {
-			if(!field in obj) {
-				missingFields.push(field);
+	function isValidIssueObj(obj) {
+		for(fieldIndex in reqFields) {
+			if(!(reqFields[fieldIndex] in obj)) {
+				return false;
 			}
 		}
 
-		return missingFields;
+		return true;
 	} 
 
 	return {
 		createIssue : function(issueObj, callback) {
-			var missingFields = getMissingFields(issueObj);
-
-			if(missingFields.length === 0) {
-
+			if(isValidIssueObj(issueObj)) {
 				issueObj.createDate = Date.now();
 				issueObj.modifiedDate = Date.now();
 				issueObj.votes = 0;
@@ -134,7 +129,7 @@ function IssuesService() {
 				});
 			}
 			else {
-				callback("Got missing fields: " + getMissingFields.toString());
+				callback("Got missing fields");
 			}
 		},
 		
@@ -168,9 +163,22 @@ function IssuesService() {
 							return;
 						}
 
-						console.log(documents.length);
-
 						callback(null, documents);
+					});
+				});
+			});
+		},
+
+		getIssue : function(issueId, callback) {
+			database.getDb(function(error, db) {
+				db.collection("issues").find({_id : issueId}, function(err, cursor) {
+					cursor.nextObject(function(err, issue) {
+						if(err !== null) {
+							winston.error(error, {time : Date.now()});
+							return;
+						}
+
+						callback(null, issue);
 					});
 				});
 			});

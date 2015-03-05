@@ -17,6 +17,8 @@ block content
 
 	#right-wrapper
 		#issue-entries.content-block
+			if issues.length == 0
+				.issue-entry No issues
 			each issue in issues
 				.issue-entry
 					.left-wrapper

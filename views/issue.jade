@@ -1,8 +1,19 @@
 extends base
 
 block head_includes
-	link(rel='stylesheet', href='/stylesheets/reporter.css')
+	link(rel='stylesheet', href='/stylesheets/issue.css')
 	title Issue Reporter
 
 block content
-	#implement-me Hi
+	#issue-wrapper.content-block
+		#issue-view
+			h1=issue.name
+
+			#issue-body=issue.description
+
+			=issue.name
+			=issue.description
+			=issue.issueType
+			=issue.reporter.name
+			=issue.projectId
+
