@@ -237,6 +237,62 @@ var UsersService = function() {
 				}
 			});
 		},
+
+		userQuery : function(query, queryNum, callback) {
+			function transformForJson(userObj) {
+				return {
+					firstName : userObj.firstName,
+					lastName : userObj.lastName,
+					id : userObj._id
+				}
+			}
+
+			database.getDb(function(error, db) {
+				var queriedUsers = []
+
+				db.collection("users").find({firstName : { $regex : "^" + query, $options : "i" } }, function(err, firstNameCursor) {
+					firstNameCursor.toArray(function(err, matches) {
+						for(var i = 0; i < Math.min(matches.length, queryNum - queriedUsers.length); i++) {
+							queriedUsers.push(transformForJson(matches[i]));
+						}
+
+						if(queriedUsers.length < queryNum) {
+
+							db.collection("users").find({lastName : { $regex : "^" + query, $options : "i" } }, function(err, lastNameCursor) {
+								lastNameCursor.toArray(function(err, matches) {
+									for(var o = 0; o < Math.min(matches.length, queryNum - queriedUsers.length); o++) {
+										queriedUsers.push(transformForJson(matches[o]));
+									}
+
+									var fullName = query.split(" ");
+									if(queriedUsers.length < queryNum && fullName.length >= 2) {
+										db.collection("users").find({ firstName : { $regex : "^" + fullName[0], $options : "i" }, lastName : { $regex : "^" + fullName[1], $options : "i" } }, function(err, fullNameCursor) {
+										
+											fullNameCursor.toArray(function(err, matches) {
+												for(var p = 0; p < Math.min(matches.length, queryNum - queriedUsers.length); p++) {
+													queriedUsers.push(transformForJson(matches[p]));
+												}
+
+												callback(null, queriedUsers);
+											});
+
+											
+										});
+									
+									}
+									else {
+										callback(null, queriedUsers);
+									}
+								});
+							});
+						}
+						else {
+							callback(null, queriedUsers);
+						}
+					});
+				});
+			});
+		}
 	}
 }
 

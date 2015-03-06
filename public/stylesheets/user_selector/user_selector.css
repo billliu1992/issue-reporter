@@ -1,0 +1,23 @@
+/* line 1, ../../../sass/user_selector/user_selector.scss */
+#ir-user-selector {
+  width: 200px;
+  /* Settings */
+}
+/* line 6, ../../../sass/user_selector/user_selector.scss */
+#ir-user-selector .ir-user-selector-user-selector-box.ir-user-selector-box-hide {
+  display: none;
+}
+
+/* line 14, ../../../sass/user_selector/user_selector.scss */
+.selected .ir-user-selector-query-input {
+  display: none;
+}
+/* line 18, ../../../sass/user_selector/user_selector.scss */
+.selected .ir-user-selector-user-selector-box {
+  display: none;
+}
+
+/* line 24, ../../../sass/user_selector/user_selector.scss */
+.unselected .ir-user-selector-selected-user {
+  display: none;
+}

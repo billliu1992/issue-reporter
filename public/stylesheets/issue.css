@@ -1,10 +1,88 @@
-/* line 1, ../../sass/issue.scss */
-#issue-wrapper {
+@charset "UTF-8";
+/* issue-specific for .content-block*/
+/* line 2, ../../sass/issue.scss */
+.content-block {
   overflow: hidden;
+  width: 75%;
+  margin: 0 auto;
 }
 
-/* line 5, ../../sass/issue.scss */
+/* line 8, ../../sass/issue.scss */
 #issue-view {
   margin: 1em 2em;
   overflow: hidden;
+}
+/* line 14, ../../sass/issue.scss */
+#issue-view #issue-head-section h1 {
+  display: inline;
+  margin-left: 1em;
+}
+/* line 19, ../../sass/issue.scss */
+#issue-view #issue-head-section #edit-button {
+  display: inline;
+  float: right;
+}
+/* line 26, ../../sass/issue.scss */
+#issue-view #description-section {
+  margin-top: 1em;
+  display: block;
+}
+/* line 30, ../../sass/issue.scss */
+#issue-view #description-section .issue-field-content {
+  display: block;
+}
+/* line 35, ../../sass/issue.scss */
+#issue-view .issue-field {
+  width: 50%;
+  display: inline-block;
+  margin: .1em 0;
+}
+/* line 40, ../../sass/issue.scss */
+#issue-view .issue-field .issue-field-label {
+  font-size: .5em;
+  display: inline-block;
+  width: 15%;
+  height: 100%;
+}
+/* line 47, ../../sass/issue.scss */
+#issue-view .issue-field .issue-field-content {
+  display: inline-block;
+  width: 80%;
+}
+
+/* line 54, ../../sass/issue.scss */
+#comment-wrapper {
+  overflow: hidden;
+  margin-top: 1em;
+}
+
+/* line 60, ../../sass/issue.scss */
+.vote-section {
+  display: inline-block;
+  vertical-align: bottom;
+}
+/* line 64, ../../sass/issue.scss */
+.vote-section .arrows {
+  color: #111;
+  display: inline-block;
+  vertical-align: middle;
+}
+/* line 69, ../../sass/issue.scss */
+.vote-section .arrows .vote-arrow {
+  display: block;
+  height: 40%;
+  font-size: .8em;
+}
+/* line 75, ../../sass/issue.scss */
+.vote-section .arrows .up-vote:before {
+  content: "▲";
+}
+/* line 79, ../../sass/issue.scss */
+.vote-section .arrows .down-vote:before {
+  content: "▼";
+}
+/* line 84, ../../sass/issue.scss */
+.vote-section .vote-count {
+  vertical-align: middle;
+  display: inline-block;
 }

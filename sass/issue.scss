@@ -1,8 +1,88 @@
-#issue-wrapper {
+/* issue-specific for .content-block*/
+.content-block {
 	overflow: hidden;
+	width: 75%;
+	margin: 0 auto;
 }
 
 #issue-view {
 	margin: 1em 2em;
 	overflow: hidden;
+
+
+	#issue-head-section {
+		h1 {
+			display: inline;
+			margin-left: 1em;
+		}
+
+		#edit-button {
+			display: inline;
+			float: right;
+		}
+
+	}
+
+	#description-section {
+		margin-top: 1em;
+		display: block;
+
+		.issue-field-content {
+			display: block;
+		}
+	}
+
+	.issue-field {
+		width: 50%;
+		display: inline-block;
+		margin: .1em 0;
+
+		.issue-field-label {
+			font-size: .5em;
+			display: inline-block;
+			width: 15%;
+			height: 100%;
+		}
+
+		.issue-field-content {
+			display: inline-block;
+			width: 80%;
+		}
+	}
+}
+
+#comment-wrapper {
+	overflow: hidden;
+	margin-top: 1em;
+}
+
+
+.vote-section {
+	display: inline-block;
+	vertical-align:bottom;;
+
+	.arrows {
+		color: #111;
+		display: inline-block;
+		vertical-align:middle;
+
+		.vote-arrow {
+			display: block;
+			height: 40%;
+			font-size: .8em;
+		}
+
+		.up-vote:before {
+			content: "\25B2"
+		}
+
+		.down-vote:before {
+			content: "\25BC"
+		}
+	}
+
+	.vote-count {
+		vertical-align:middle;
+		display: inline-block;
+	}
 }

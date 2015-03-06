@@ -64,6 +64,26 @@ router.post("/user/create", function(req, res) {
 	res.redirect("/");
 });
 
+/* User query */
+router.get("/user/query/", function(req, res) {
+	var query = req.query.query;
+
+	console.log(req.query.query);
+
+	Users.userQuery(query, 5, function(err, resultList) {
+		if(err) {
+			errObj = {
+				error: err
+			}
+			res.send(JSON.stringify(errObj));
+			return;
+		}
+
+		var result = JSON.stringify(resultList);
+		res.send(result);
+	});
+});
+
 /* User Prefs */
 router.get("/user/:user_id", function(req, res) {
 	var userId = ObjectID(req.params.user_id);

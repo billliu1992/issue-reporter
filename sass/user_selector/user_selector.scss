@@ -1,0 +1,33 @@
+#ir-user-selector {
+	width: 200px;
+
+	/* Settings */
+	.ir-user-selector-user-selector-box {
+		&.ir-user-selector-box-hide {
+			display: none;
+		}
+	}
+}
+
+.selected {
+
+	.ir-user-selector-query-input {
+		display: none;
+	}
+
+	.ir-user-selector-user-selector-box {
+		display: none;
+	}
+}
+
+.unselected {
+	.ir-user-selector-selected-user {
+		display: none;
+	}
+}
+
+.ir-user-selector-user-selector-box {
+}
+
+.ir-user-selector-user-entry {
+}

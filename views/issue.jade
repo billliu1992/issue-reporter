@@ -7,13 +7,46 @@ block head_includes
 block content
 	#issue-wrapper.content-block
 		#issue-view
-			h1=issue.name
 
-			#issue-body=issue.description
+			#issue-head-section
+				.vote-section
+					.arrows
+						span.vote-arrow.up-vote 
+						span.vote-arrow.down-vote 
+					span.vote-count 0
 
-			=issue.name
-			=issue.description
-			=issue.issueType
-			=issue.reporter.name
-			=issue.projectId
+				h1=issue.name
 
+				a(href="#").button#edit-button Edit
+
+			.issue-field
+				.issue-field-label Issue Type:
+				.issue-field-content=issue.issueType
+			
+			.issue-field
+				.issue-field-label Priority:
+				.issue-field-content=issue.priority
+
+			.issue-field
+				.issue-field-label Reporter:
+				.issue-field-content 
+					a(href="/user/"+issue.reporter.id)=issue.reporter.name
+
+			.issue-field
+				.issue-field-label Assignee:
+				.issue-field-content Test Assignee
+
+			.issue-field
+				.issue-field-label Version:
+				.issue-field-content Version B10
+
+			.issue-field
+				.issue-field-label Tags:
+				.issue-field-content devel,content,ux,design,test
+
+			#description-section.issue-field
+				.issue-field-label Description:
+				.issue-field-content=issue.description
+			
+	#comment-wrapper.content-block
+		|Comments go here

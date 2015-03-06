@@ -2,6 +2,13 @@ extends base
 
 block head_includes
 	link(rel='stylesheet', href='/stylesheets/newissue.css')
+	link(rel="stylesheet", href="/stylesheets/user_selector/user_selector.css")
+	script(src="/javascripts/irUserSelector.js")
+	script(src="http://code.jquery.com/jquery-2.1.3.min.js") 	//-Use CDN for test
+	script.
+		window.onload = function() {
+			var userSelector = new UserSelector()
+		}
 	title Create Issue
 
 block content
@@ -13,9 +20,14 @@ block content
 				label(for="issue-name") Issue
 				input(type="text", id="issue-name", name="issue-name")
 
-			.form-field.text-field
-				label(for="issue-body") Body
-				textarea(name="issue-body", id="issue-body")
+			.form-field.inline-field
+				label(for="issue-type") Type
+				select(name="issue-type", id="issue-type")
+					option Select a Type
+					option Bug Report
+					option Implementation
+					option To-do
+					option Discussion
 
 			.form-field.inline-field
 				label(for="issue-priority") Priority
@@ -30,5 +42,22 @@ block content
 			.form-field.inline-field
 				input(type="checkbox" name="issue-internal", id="issue-internal")
 				label(for="issue-internal") Internal?
+
+			.form-field.inline-field
+				label(for="issue-version") Version:
+				input(type="text", name="issue-version", id="issue-version")
+
+
+			.form-field.inline-field
+				label(for="issue-assignee") Assignee:
+				#ir-user-selector
+
+			.form-field.text-field
+				label(for="issue-tags") Tags
+				input(type="text", id="issue-tags", name="issue-tags")
+
+			.form-field.text-field
+				label(for="issue-body") Description
+				textarea(name="issue-body", id="issue-body", placeholder="Please include a detailed description")
 
 			button Create Issue
