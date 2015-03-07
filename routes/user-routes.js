@@ -15,7 +15,7 @@ passport.use(
 		Users.checkUserPassword(username, password, function(err, user) {
 			if(err !== null) {
 				done(null, false);
-				message.addMessage("Wrong e-mail and/or password", Message.ERROR);
+				Message.addMessage("Wrong e-mail and/or password", Message.ERROR);
 				return;
 			}
 

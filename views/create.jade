@@ -23,11 +23,11 @@ block content
 			.form-field.inline-field
 				label(for="issue-type") Type
 				select(name="issue-type", id="issue-type")
-					option Select a Type
-					option Bug Report
-					option Implementation
-					option To-do
-					option Discussion
+					option(value="none") Select a Type
+					option(value="bug") Bug Report
+					option(value="implementation") Implementation
+					option(value="todo") To-do
+					option(value="discussion") Discussion
 
 			.form-field.inline-field
 				label(for="issue-priority") Priority
@@ -40,10 +40,6 @@ block content
 					option(value="5") Wishful
 
 			.form-field.inline-field
-				input(type="checkbox" name="issue-internal", id="issue-internal")
-				label(for="issue-internal") Internal?
-
-			.form-field.inline-field
 				label(for="issue-version") Version:
 				input(type="text", name="issue-version", id="issue-version")
 
@@ -51,6 +47,10 @@ block content
 			.form-field.inline-field
 				label(for="issue-assignee") Assignee:
 				#ir-user-selector
+
+			.form-field.inline-field
+				input(type="checkbox" name="issue-internal", id="issue-internal")
+				label(for="issue-internal") Internal?
 
 			.form-field.text-field
 				label(for="issue-tags") Tags

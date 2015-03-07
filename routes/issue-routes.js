@@ -36,33 +36,43 @@ router.get("/project/:project_slug/", function(req, res) {
 
 	var slug = req.params.project_slug
 
-	Projects.getProjectBySlug(slug, function(error, project) {
-
-		if(error !== null) {
-			Message.addMessage(error, Message.ERROR);
+	Projects.getProjectBySlug(slug, function(err, project) {
+		if(err !== null) {
+			Message.addMessage(err, Message.ERROR);
 			res.redirect("/");
 			return;
 		}
 
-		Issues.getIssuesOfProject(ObjectID(project._id), function(err, projectIssues) {
+		Issues.getIssuesOfProject(slug, function(err, projectIssues) {
 			res.render('project_front', {"issues" : projectIssues, "project" : project });
 		});
 	});
 });
 
 /* Page for a single issue */
-router.get("/project/:project_slug/issues/:issue_id", function(req, res) {
+router.get("/project/:project_slug/issues/:issue_num", function(req, res) {
 
-	var issueId = req.params.issue_id
+	var projectSlug = req.params.project_slug;
+	var issueNum = parseInt(req.params.issue_num);
 
-	Issues.getIssue(ObjectID(issueId), function(err, issue) {
-		if(err !== null) {
-			Message.addMessage(err, Message.ERROR);
-			return res.redirect("/");
-		}
+	Projects.getProjectBySlug(projectSlug, function(err, project) {
+		Issues.getIssueByProjectAndNumber(projectSlug, issueNum, function(err, issue) {
+			if(err !== null) {
+				Message.addMessage(err, Message.ERROR);
+				return res.redirect("/");
+			}
 
-		res.render("issue", {issue : issue});
+			res.render("issue", {issue : issue});
+		});
 	});
+});
+
+router.get("/project/:project_slug/issues/:issue_num/edit", function(req, res) {
+	var issueNum = req.params.issueNum;
+
+});
+
+router.post("/project/:project_slug/issues/:issue_num/edit", function(req, res) {
 });
 
 /* Page to create an issue */
@@ -79,37 +89,49 @@ router.post("/project/:project_slug/create", function(req, res) {
 		return;
 	}
 
+	var tags = req.body["issue-tags"];
+
 	var name = req.body["issue-name"];
 	var body = req.body["issue-body"];
 	var priority = req.body["issue-priority"];
 	var internal = req.body["issue-internal"];	
 	var project = req.params.project_slug
+	var assigneeId = req.body["ir-user-selected-id"];
+	var assigneeName = req.body["ir-user-selected-full-name"];
+	var version = req.body["issue-version"];
 
-	Projects.getProjectBySlug(project, function(err, project) {
-		var newIssue = {
-				"name" : name, 
-				"description" : body,
-				"issueType" : "Test",
-				"priority" : priority,
-				"reporter" : {
-					"name" : req.user.firstName + " " + req.user.lastName,
-					"id" : req.user._id
-				},
-				"projectId" : project._id,
-				"internal" : internal,
-			}
+	var newIssue = {
+			"name" : name, 
+			"description" : body,
+			"issueType" : "Test",
+			"priority" : priority,
+			"reporter" : {
+				"name" : req.user.firstName + " " + req.user.lastName,
+				"id" : req.user._id
+			},
+			"tags" : tags,
+			"version" : version,
+			"projectSlug" : project,
+			"internal" : internal,
+		}
 
-		Issues.createIssue(newIssue, function(err, issue) {
-			if(err) {
-				Message.addMessage("Error creating issue", Message.ERROR);
+	if(assigneeId !== "" || assigneeId !== null) {
+		newIssue.assignee = {
+			"name" : assigneeName,
+			"id" : assigneeId
+		}
+	}
 
-				res.redirect("/project/" + req.params.project_slug + "/");
-				return;
-			}
-			Message.addMessage("Successfully created issue!", Message.SUCCESS);
+	Issues.createIssue(newIssue, project, function(err, issue) {
+		if(err) {
+			Message.addMessage("Error creating issue", Message.ERROR);
 
-			res.redirect("/");	
-		});
+			res.redirect("/project/" + req.params.project_slug + "/");
+			return;
+		}
+		Message.addMessage("Successfully created issue!", Message.SUCCESS);
+
+		res.redirect("/");	
 	});
 });
 

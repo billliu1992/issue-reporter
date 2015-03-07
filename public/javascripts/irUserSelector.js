@@ -39,6 +39,7 @@
 		var queryInput = document.createElement("input");
 		queryInput.className = HtmlClassNames.userQueryInput;
 		queryInput.type = "text";
+		queryInput.name = "ir-user-selected-full-name";
 		queryInput.placeholder = "Start typing a name here";
 		userSelectorDom.appendChild(queryInput);
 
@@ -47,7 +48,9 @@
 		userSelectorDom.appendChild(selectedSpan);
 
 		var userIdInput = document.createElement("input");
+		userIdInput.type = "hidden";
 		userIdInput.name = "ir-user-selected-id";
+		userSelectorDom.appendChild(userIdInput);
 
 		var selectorBox = document.createElement("div");
 		selectorBox.className = HtmlClassNames.userSelectorBox;
@@ -78,15 +81,16 @@
 
 							var newUserName = document.createElement("span");
 							newUserName.className = HtmlClassNames.userEntry + "-name";
-							newUserName.innerHTML = userObj.firstName + " " + userObj.lastName;
-							newUserName.text = userObj.firstName + " " + userObj.lastName;
+							newUserName.innerHTML = userObj.fullName;
+							newUserName.text = userObj.fullName;
 							newUserEntry.appendChild(newUserName);
 
 							newUserEntry.addEventListener("click", function() {
-								userIdInput.value = userObj.id;
+								userIdInput.value = userObj._id;
 								that.selectedUser = userObj;
 								userSelectorDom.className = "selected";
-								selectedSpan.innerHTML = userObj.firstName + " " + userObj.lastName;
+								selectedSpan.innerHTML = userObj.fullName;
+								queryInput.innerHTML = userObj.fullName;
 							});
 						}
 					});
@@ -108,6 +112,7 @@
 				userSelectorDom.className = "unselected";
 				queryInput.value = selectedSpan.innerHTML;
 				this.handleQuery;
+				userIdInput.value = "";
 				queryInput.focus();
 			}
 		}

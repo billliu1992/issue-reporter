@@ -167,25 +167,26 @@ body {
 }
 
 /* line 172, ../../sass/base.scss */
-.inline-field select {
+.inline-field select,
+.inline-field input {
   margin: 0 1em;
 }
 
 /* Button */
-/* line 182, ../../sass/base.scss */
+/* line 180, ../../sass/base.scss */
 .button {
   cursor: pointer;
 }
 
 /* Pop up */
-/* line 188, ../../sass/base.scss */
+/* line 186, ../../sass/base.scss */
 .popup-box {
   background-color: #FFF;
   display: none;
   position: absolute;
   z-index: 999;
 }
-/* line 194, ../../sass/base.scss */
+/* line 192, ../../sass/base.scss */
 .popup-box .popup-topbar {
   background-color: #628FD9;
   display: block;
@@ -194,25 +195,25 @@ body {
   border-width: 0px;
   border-bottom-width: 2px;
 }
-/* line 203, ../../sass/base.scss */
+/* line 201, ../../sass/base.scss */
 .popup-box .popup-topbar span {
   color: #111;
 }
-/* line 208, ../../sass/base.scss */
+/* line 206, ../../sass/base.scss */
 .popup-box .popup-close {
   float: right;
 }
-/* line 212, ../../sass/base.scss */
+/* line 210, ../../sass/base.scss */
 .popup-box .popup-main {
   padding: 10px;
   display: block;
 }
-/* line 217, ../../sass/base.scss */
+/* line 215, ../../sass/base.scss */
 .popup-box .popup-title {
   font-size: 100%;
 }
 
-/* line 222, ../../sass/base.scss */
+/* line 220, ../../sass/base.scss */
 .popup-background {
   background-color: rgba(200, 200, 200, 0.8);
   top: 0;
@@ -222,12 +223,12 @@ body {
 }
 
 /* Notifications */
-/* line 232, ../../sass/base.scss */
+/* line 230, ../../sass/base.scss */
 .notif-error {
   background-color: #FF4040;
 }
 
-/* line 236, ../../sass/base.scss */
+/* line 234, ../../sass/base.scss */
 .notif-success {
   background-color: #73E65C;
 }

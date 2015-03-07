@@ -40,7 +40,8 @@ function ProjectsService() {
 				description: projectDesc,
 				url : projectUrl,
 				hidden : hidden,
-				slug : this.createProjectSlug(projectName)
+				slug : this.createProjectSlug(projectName),
+				issueCounter : 0,
 			}
 
 			isSlugAvailable(projectObj.slug, function(avail) {
@@ -89,6 +90,20 @@ function ProjectsService() {
 			});
 		},
 
+		getAndIncProjectIssueCount : function(slug, callback) {
+			database.getDb(function(error, db) {
+				db.collection("projects").findAndModify({ slug : slug }, [], { $inc : { issueCounter : 1 } }, function(err, project) {
+					if(err !== null) {
+						winston.error(err, {time : Date.now()});
+						callback(err);
+						return;
+					}
+
+					callback(null, project.issueCounter);
+				});
+			});
+		},
+
 		createProjectSlug : function(fullProjectName) {
 			return fullProjectName.toLowerCase().replace(" ", "_");
 		}
@@ -97,7 +112,7 @@ function ProjectsService() {
 
 function IssuesService() {
 
-	var reqFields = ["name", "description", "issueType", "reporter", "projectId"];
+	var reqFields = ["name", "description", "issueType", "reporter", "projectSlug"];
 
 	function isValidIssueObj(obj) {
 		for(fieldIndex in reqFields) {
@@ -110,27 +125,30 @@ function IssuesService() {
 	} 
 
 	return {
-		createIssue : function(issueObj, callback) {
-			if(isValidIssueObj(issueObj)) {
-				issueObj.createDate = Date.now();
-				issueObj.modifiedDate = Date.now();
-				issueObj.votes = 0;
+		createIssue : function(issueObj, projectSlug, callback) {
+			Projects.getAndIncProjectIssueCount(projectSlug, function(err, count) {
+				if(isValidIssueObj(issueObj)) {
+					issueObj.createDate = Date.now();
+					issueObj.modifiedDate = Date.now();
+					issueObj.votes = 0;
+					issueObj.issueNum = count;
 
-				database.getDb(function(error, db) {
-					db.collection("issues").insert(issueObj, function(err, inserted) {
-						if(err !== null) {
-							winston.error(error, {time : Date.now()});
-							callback(err);
-							return;
-						}
+					database.getDb(function(error, db) {
+						db.collection("issues").insert(issueObj, function(err, inserted) {
+							if(err !== null) {
+								winston.error(error, {time : Date.now()});
+								callback(err);
+								return;
+							}
 
-						callback(null, inserted);
+							callback(null, inserted);
+						});
 					});
-				});
-			}
-			else {
-				callback("Got missing fields");
-			}
+				}
+				else {
+					callback("Got missing fields");
+				}
+			});
 		},
 		
 		getIssues : function(callback, limitNumber) {
@@ -153,10 +171,10 @@ function IssuesService() {
 			});
 		},
 
-		getIssuesOfProject : function(projectId, callback) {
+		getIssuesOfProject : function(projectSlug, callback) {
 
 			database.getDb(function(error, db) {
-				db.collection("issues").find({projectId : projectId}, function(err, cursor) {
+				db.collection("issues").find({projectSlug : projectSlug}, function(err, cursor) {
 					cursor.toArray(function(err, documents) {
 						if(err !== null) {
 							winston.error(error, {time : Date.now()});
@@ -182,9 +200,33 @@ function IssuesService() {
 					});
 				});
 			});
+		},
+
+		getIssueByProjectAndNumber : function(projectSlug, issueNum, callback) {
+			database.getDb(function(error, db) {
+				db.collection("issues").find({ projectSlug : projectSlug, issueNum : issueNum }, function(err, cursor) {
+					cursor.nextObject(function(err, issue) {
+						if(err !== null) {
+							winston.error(err, {time : Date.now()});
+							callback(err);
+							return;
+						}
+						if(issue === null) {
+							winston.error("Could not find issue #" + issueNum + " in slug: " + projectSlug);
+							callback("Could not find issue #" + issueNum + " in slug: " + projectSlug);
+							return;
+						}
+
+						callback(null, issue);
+					});
+				});
+			});
 		}
 	}
 }
 
-exports.Issues = new IssuesService();
-exports.Projects = new ProjectsService();
+Projects = new ProjectsService();
+Issues = new IssuesService();
+
+exports.Issues = Issues;
+exports.Projects = Projects;

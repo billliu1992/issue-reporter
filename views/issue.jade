@@ -34,15 +34,19 @@ block content
 
 			.issue-field
 				.issue-field-label Assignee:
-				.issue-field-content Test Assignee
+				if issue.assignee.name
+					.issue-field-content
+						a(href="/user/"+issue.assignee.id)=issue.assignee.name
+				else
+					.issue-field-content Nobody
 
 			.issue-field
 				.issue-field-label Version:
-				.issue-field-content Version B10
+				.issue-field-content=issue.version
 
 			.issue-field
 				.issue-field-label Tags:
-				.issue-field-content devel,content,ux,design,test
+				.issue-field-content=issue.tags
 
 			#description-section.issue-field
 				.issue-field-label Description:
