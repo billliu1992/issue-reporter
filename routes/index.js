@@ -10,6 +10,7 @@ var router = express.Router();
 router.use(function(req, res, next) {
     res.locals.messages = Message.getAllMessages();
     res.locals.user = req.user;
+    res.locals.currentUrl = req.originalUrl
     next();
 });
 

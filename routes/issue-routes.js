@@ -50,33 +50,73 @@ router.get("/project/:project_slug/", function(req, res) {
 });
 
 /* Page for a single issue */
-router.get("/project/:project_slug/issues/:issue_num", function(req, res) {
-
+router.get("/project/:project_slug/issues/:issue_num/", function(req, res) {
 	var projectSlug = req.params.project_slug;
 	var issueNum = parseInt(req.params.issue_num);
+	Issues.getIssueByProjectAndNumber(projectSlug, issueNum, function(err, issue) {
+		if(err !== null) {
+			Message.addMessage(err, Message.ERROR);
+			return res.redirect("/");
+		}
 
-	Projects.getProjectBySlug(projectSlug, function(err, project) {
-		Issues.getIssueByProjectAndNumber(projectSlug, issueNum, function(err, issue) {
-			if(err !== null) {
-				Message.addMessage(err, Message.ERROR);
-				return res.redirect("/");
-			}
-
-			res.render("issue", {issue : issue});
-		});
+		res.render("issue", {issue : issue});
 	});
 });
 
-router.get("/project/:project_slug/issues/:issue_num/edit", function(req, res) {
-	var issueNum = req.params.issueNum;
+router.get("/project/:project_slug/issues/:issue_num/edit/", function(req, res) {
+	var issueNum = parseInt(req.params.issue_num);
+	var projectSlug = req.params.project_slug
 
+	Issues.getIssueByProjectAndNumber(projectSlug, issueNum, function(err, issue) {
+		if(err !== null) {
+			Message.addMessage(err, Message.ERROR);
+			return res.redirect("/");
+		}
+
+		var tags = issue.tags;
+
+		var tagsConcated = "";
+		for(var i = 0; i < tags.length; i++) {
+			tagsConcated += tags[i].toLowerCase() + " ";
+		}
+
+		res.render("create", {issue : issue, tags : tagsConcated});
+	});
 });
 
-router.post("/project/:project_slug/issues/:issue_num/edit", function(req, res) {
+router.post("/project/:project_slug/issues/:issue_num/edit/", function(req, res) {
+	if(!req.user) {
+		Message.addMessage("Not logged in!", Message.ERROR);
+		res.redirect("/");
+		return;
+	}
+
+	var project = req.params.project_slug;
+	var issueNum = parseInt(req.params.issue_num)
+
+	var newIssue = createIssueFromReq(req);
+
+	Issues.updateIssue(newIssue, project, issueNum, function(err, issue) {
+		if(err) {
+			Message.addMessage("Error editing issue", Message.ERROR);
+
+			res.redirect("/project/" + req.params.project_slug + "/" + issueNum + "/");
+			return;
+		}
+		Message.addMessage("Successfully edited issue!", Message.SUCCESS);
+
+		res.redirect("/project/" + req.params.project_slug + "/issues/" + issueNum + "/");	
+	});
 });
 
 /* Page to create an issue */
 router.get("/project/:project_slug/create", function(req, res) {
+	if(!req.user) {
+		Message.addMessage("Not logged in!", Message.ERROR);
+		res.redirect("/");
+		return;
+	}
+
 	res.render("create", {});
 });
 
@@ -89,7 +129,31 @@ router.post("/project/:project_slug/create", function(req, res) {
 		return;
 	}
 
+	var project = req.params.project_slug;
+
+	var newIssue = createIssueFromReq(req);
+
+	Issues.createIssue(newIssue, project, function(err, issue) {
+		if(err) {
+			Message.addMessage("Error creating issue", Message.ERROR);
+
+			res.redirect("/project/" + req.params.project_slug + "/");
+			return;
+		}
+		Message.addMessage("Successfully created issue!", Message.SUCCESS);
+
+		res.redirect("/");	
+	});
+});
+
+function createIssueFromReq(req) {
 	var tags = req.body["issue-tags"];
+
+	var tagsSplit = tags.split(/[ ;,]+?/g).filter(
+		function(element) {
+			return element !== "";
+		}
+	);
 
 	var name = req.body["issue-name"];
 	var body = req.body["issue-body"];
@@ -109,7 +173,7 @@ router.post("/project/:project_slug/create", function(req, res) {
 				"name" : req.user.firstName + " " + req.user.lastName,
 				"id" : req.user._id
 			},
-			"tags" : tags,
+			"tags" : tagsSplit,
 			"version" : version,
 			"projectSlug" : project,
 			"internal" : internal,
@@ -122,17 +186,7 @@ router.post("/project/:project_slug/create", function(req, res) {
 		}
 	}
 
-	Issues.createIssue(newIssue, project, function(err, issue) {
-		if(err) {
-			Message.addMessage("Error creating issue", Message.ERROR);
-
-			res.redirect("/project/" + req.params.project_slug + "/");
-			return;
-		}
-		Message.addMessage("Successfully created issue!", Message.SUCCESS);
-
-		res.redirect("/");	
-	});
-});
+	return newIssue;
+}
 
 module.exports = router;

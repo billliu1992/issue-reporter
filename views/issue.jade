@@ -17,7 +17,7 @@ block content
 
 				h1=issue.name
 
-				a(href="#").button#edit-button Edit
+				a(href="edit/").button#edit-button Edit
 
 			.issue-field
 				.issue-field-label Issue Type:
@@ -46,7 +46,9 @@ block content
 
 			.issue-field
 				.issue-field-label Tags:
-				.issue-field-content=issue.tags
+				.issue-field-content
+					each tag in issue.tags
+						a(class="tag", href="/search/?tag=" + tag)=tag
 
 			#description-section.issue-field
 				.issue-field-label Description:

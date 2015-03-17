@@ -9,9 +9,11 @@ html
 					- if(user) {
 						#welcome-message 
 							a(href="/user/#{user._id}") Welcome #{user.firstName}
+
+						a(href="/user/logout") Logout
 					- }
 					- else {
-						form(action="/user/login", method="post")
+						form(action="/user/login/?redirect=" + currentUrl, method="post")
 							input(name="username", type="text")
 							input(name="password", type="password")
 							input(type="submit", value="Log In", class="small-btn")

@@ -42,11 +42,30 @@ passport.deserializeUser(function(id, done) {
 
 
 /* User Authentication */
-router.post('/user/login', passport.authenticate('local', { successRedirect: '/',failureRedirect: '/'}),
+router.post('/user/login',
 	function(req, res, next) {
-		res.redirect("/");
+		var redirect = req.query.redirect
+
+		passport.authenticate('local', function(err, user, info) {
+			if(err) {
+				return next(err);
+			}
+			if(!user) {
+				return res.redirect("/");
+			}
+			req.logIn(user, function(err) {
+				if (err) { return next(err); }
+				return res.redirect(redirect);
+			});
+		})(req, res, next)
 	}
 );
+
+router.get("/user/logout", function(req, res) {
+	req.logout();
+	Message.addMessage("Successfully logged out", Message.SUCCESS);
+	res.redirect("/");
+});
 
 router.get("/user/create", function(req, res) {
 	res.render("new_user")
@@ -67,9 +86,7 @@ router.post("/user/create", function(req, res) {
 /* User query */
 router.get("/user/query/", function(req, res) {
 	var query = req.query.query;
-
-	console.log(req.query.query);
-
+	
 	Users.userQuery(query, 5, function(err, resultList) {
 		if(err) {
 			errObj = {

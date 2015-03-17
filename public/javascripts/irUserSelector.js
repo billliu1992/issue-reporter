@@ -90,7 +90,7 @@
 								that.selectedUser = userObj;
 								userSelectorDom.className = "selected";
 								selectedSpan.innerHTML = userObj.fullName;
-								queryInput.innerHTML = userObj.fullName;
+								queryInput.value = userObj.fullName;
 							});
 						}
 					});
@@ -111,9 +111,15 @@
 			reselectUser : function() {
 				userSelectorDom.className = "unselected";
 				queryInput.value = selectedSpan.innerHTML;
-				this.handleQuery;
 				userIdInput.value = "";
 				queryInput.focus();
+			},
+
+			selectUser : function(userName, userId) {
+				queryInput.value = userName;
+				userIdInput.value = userId;
+				selectedSpan.innerHTML = userName;
+				userSelectorDom.className = "selected";
 			}
 		}
 

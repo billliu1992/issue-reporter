@@ -49,39 +49,43 @@
   display: inline-block;
   width: 80%;
 }
+/* line 51, ../../sass/issue.scss */
+#issue-view .issue-field .issue-field-content .tag {
+  margin-right: .5em;
+}
 
-/* line 54, ../../sass/issue.scss */
+/* line 58, ../../sass/issue.scss */
 #comment-wrapper {
   overflow: hidden;
   margin-top: 1em;
 }
 
-/* line 60, ../../sass/issue.scss */
+/* line 64, ../../sass/issue.scss */
 .vote-section {
   display: inline-block;
   vertical-align: bottom;
 }
-/* line 64, ../../sass/issue.scss */
+/* line 68, ../../sass/issue.scss */
 .vote-section .arrows {
   color: #111;
   display: inline-block;
   vertical-align: middle;
 }
-/* line 69, ../../sass/issue.scss */
+/* line 73, ../../sass/issue.scss */
 .vote-section .arrows .vote-arrow {
   display: block;
   height: 40%;
   font-size: .8em;
 }
-/* line 75, ../../sass/issue.scss */
+/* line 79, ../../sass/issue.scss */
 .vote-section .arrows .up-vote:before {
   content: "▲";
 }
-/* line 79, ../../sass/issue.scss */
+/* line 83, ../../sass/issue.scss */
 .vote-section .arrows .down-vote:before {
   content: "▼";
 }
-/* line 84, ../../sass/issue.scss */
+/* line 88, ../../sass/issue.scss */
 .vote-section .vote-count {
   vertical-align: middle;
   display: inline-block;

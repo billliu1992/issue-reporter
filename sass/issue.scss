@@ -47,6 +47,10 @@
 		.issue-field-content {
 			display: inline-block;
 			width: 80%;
+
+			.tag {
+				margin-right: .5em;
+			}
 		}
 	}
 }

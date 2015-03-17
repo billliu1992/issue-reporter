@@ -221,6 +221,25 @@ function IssuesService() {
 					});
 				});
 			});
+		},
+
+		updateIssue : function(issueObj, projectSlug, issueNum, callback) {
+			if(isValidIssueObj(issueObj)) {
+				database.getDb(function(error, db) {
+					db.collection("issues").update({ projectSlug : projectSlug, issueNum : issueNum }, { $set : issueObj }, function(err, count, status) {
+						if(err) {
+							callback(err);
+							winston.error(err, {time : Date.now() });
+							return;
+						}
+
+						callback(null, count, status);
+					});
+				});
+			}
+			else {
+				callback("Not enough fields");
+			}
 		}
 	}
 }

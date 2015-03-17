@@ -5,10 +5,18 @@ block head_includes
 	link(rel="stylesheet", href="/stylesheets/user_selector/user_selector.css")
 	script(src="/javascripts/irUserSelector.js")
 	script(src="http://code.jquery.com/jquery-2.1.3.min.js") 	//-Use CDN for test
-	script.
-		window.onload = function() {
-			var userSelector = new UserSelector()
-		}
+
+	if(issue && issue.assignee && issue.assignee.name)
+		script.
+			window.onload = function() {
+				var userSelector = new UserSelector()
+				userSelector.selectUser("#{issue.assignee.name}", "#{issue.assignee.id}");
+			}
+	else
+		script.
+			window.onload = function() {
+				var userSelector = new UserSelector()
+			}
 	title Create Issue
 
 block content
@@ -18,30 +26,30 @@ block content
 		form(method="POST", action="")
 			.form-field.text-field
 				label(for="issue-name") Issue
-				input(type="text", id="issue-name", name="issue-name")
+				input(type="text", id="issue-name", value=issue ? issue.name : "", name="issue-name")
 
 			.form-field.inline-field
 				label(for="issue-type") Type
 				select(name="issue-type", id="issue-type")
-					option(value="none") Select a Type
-					option(value="bug") Bug Report
-					option(value="implementation") Implementation
-					option(value="todo") To-do
-					option(value="discussion") Discussion
+					option(value="none" selected=issue && issue.issueType=="none") Select a Type
+					option(value="bug" selected=issue && issue.issueType=="bug") Bug Report
+					option(value="implementation" selected=issue && issue.issueType=="implementation") Implementation
+					option(value="todo" selected=issue && issue.issueType=="todo") To-do
+					option(value="discussion" selected=issue && issue.issueType=="discussion") Discussion
 
 			.form-field.inline-field
 				label(for="issue-priority") Priority
 				select(name="issue-priority", id="issue-priority")
-					option(value="0", selected) Select a Priority
-					option(value="1") Critical
-					option(value="2") High
-					option(value="3") Medium
-					option(value="4") Low
-					option(value="5") Wishful
+					option(value="0", selected=issue && issue.priority == "0") Select a Priority
+					option(value="1", selected=issue && issue.priority == "1") Critical
+					option(value="2", selected=issue && issue.priority == "2") High
+					option(value="3", selected=issue && issue.priority == "3") Medium
+					option(value="4", selected=issue && issue.priority == "4") Low
+					option(value="5", selected=issue && issue.priority == "5") Wishful
 
 			.form-field.inline-field
 				label(for="issue-version") Version:
-				input(type="text", name="issue-version", id="issue-version")
+				input(type="text", name="issue-version", value=issue ? issue.version : "", id="issue-version")
 
 
 			.form-field.inline-field
@@ -49,15 +57,15 @@ block content
 				#ir-user-selector
 
 			.form-field.inline-field
-				input(type="checkbox" name="issue-internal", id="issue-internal")
+				input(type="checkbox" name="issue-internal", id="issue-internal", checked=issue && issue.internal)
 				label(for="issue-internal") Internal?
 
 			.form-field.text-field
 				label(for="issue-tags") Tags
-				input(type="text", id="issue-tags", name="issue-tags")
+				input(type="text", id="issue-tags", value=tags ? tags : "", name="issue-tags", placeholder="Please include words that describe your issue")
 
 			.form-field.text-field
 				label(for="issue-body") Description
-				textarea(name="issue-body", id="issue-body", placeholder="Please include a detailed description")
+				textarea(name="issue-body", id="issue-body", placeholder="Please include a detailed description")=issue ? issue.description : ""
 
-			button Create Issue
+			button=issue ? "Edit Issue" : "Create Issue"
