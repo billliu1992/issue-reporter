@@ -1,7 +1,7 @@
 var express = require('express');
 var ObjectID = require('mongodb').ObjectID
 var Issues = require("../reporter/objects/issues").Issues;
-var Projects = require("../reporter/objects/issues").Projects;
+var Projects = require("../reporter/objects/projects").Projects;
 var Users = require("../reporter/objects/users").Users;
 var Message = require("../reporter/messaging").Message;
 var router = express.Router();
@@ -155,28 +155,23 @@ function createIssueFromReq(req) {
 		}
 	);
 
-	var name = req.body["issue-name"];
-	var body = req.body["issue-body"];
-	var priority = req.body["issue-priority"];
-	var internal = req.body["issue-internal"];	
-	var project = req.params.project_slug
+	var project = req.params.project_slug;
 	var assigneeId = req.body["ir-user-selected-id"];
 	var assigneeName = req.body["ir-user-selected-full-name"];
-	var version = req.body["issue-version"];
 
 	var newIssue = {
-			"name" : name, 
-			"description" : body,
-			"issueType" : "Test",
-			"priority" : priority,
+			"name" : req.body["issue-name"], 
+			"description" : req.body["issue-body"],
+			"issueType" : req.body["issue-type"],
+			"priority" : req.body["issue-priority"],
 			"reporter" : {
 				"name" : req.user.firstName + " " + req.user.lastName,
 				"id" : req.user._id
 			},
 			"tags" : tagsSplit,
-			"version" : version,
+			"version" : req.body["issue-version"],
 			"projectSlug" : project,
-			"internal" : internal,
+			"internal" : req.body["issue-internal"],
 		}
 
 	if(assigneeId !== "" || assigneeId !== null) {

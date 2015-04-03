@@ -2,7 +2,7 @@ var express = require('express');
 var ObjectID = require('mongodb').ObjectID
 var Issues = require("../reporter/objects/issues").Issues;
 var Users = require("../reporter/objects/users").Users;
-var Projects = require("../reporter/objects/issues").Projects;
+var Projects = require("../reporter/objects/projects").Projects;
 var Message = require("../reporter/messaging").Message;
 var router = express.Router();
 
